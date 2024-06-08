@@ -7,8 +7,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tareas',function(){
-    return view('todos/index');
-})->name('todos');
+# CRUD
+    # Read
+    Route::get('/tareas',[ TodosController::class, 'index'])->name('todos');
 
-Route::post('/tareas',[ TodosController::class, 'store'])->name('todos');
+    # Create
+    Route::post('/tareas',[ TodosController::class, 'store'])->name('todos');
+
+    # Update
+    Route::get('/tareas/{id}',[ TodosController::class, 'show'])->name('todos-edit');
+    Route::patch('/tareas/{id}',[ TodosController::class, 'update'])->name('todos-update');
+
+    # Delete
+    Route::delete('/tareas/{id}',[ TodosController::class, 'destroy'])->name('todos-destroy');
+# end CRUD
