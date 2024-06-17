@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\TodosController;
+use App\Http\Controllers\CategoriasController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-# CRUD
+# ToDo CRUD
     # Read
     Route::get('/tareas',[ TodosController::class, 'index'])->name('todos');
 
@@ -21,3 +22,7 @@ Route::get('/', function () {
     # Delete
     Route::delete('/tareas/{id}',[ TodosController::class, 'destroy'])->name('todos-destroy');
 # end CRUD
+
+# Categories CRUD
+    Route::resource('categories',CategoriasController::class);
+

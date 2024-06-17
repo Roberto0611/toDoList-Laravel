@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;  // Importar nuestro modelo
+use App\Models\Category;
 
 class TodosController extends Controller
 {
@@ -23,6 +24,7 @@ class TodosController extends Controller
 
         $todo = new Todo; # Crear objeto
         $todo -> title = $request -> title; # Asignamos los valores
+        $todo -> category_id = $request -> category_id; # Asignamos los valores
         $todo -> save(); # Guardar un nuevo elemento en nuestra base de datos
 
         return redirect()->route('todos')->with('success', 'tarea creada correctamente'); # Regresar a nuestro view con un mensaje
@@ -30,7 +32,9 @@ class TodosController extends Controller
 
      public function index(){
         $todos = Todo::all();
-        return view('todos.index', ['todos' => $todos]);
+        $categories = Category::all();
+   
+        return view('todos.index', ['todos' => $todos, 'categories' => $categories]);
      }
 
      public function show($id){
